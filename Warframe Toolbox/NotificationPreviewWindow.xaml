@@ -1,0 +1,25 @@
+﻿<Controls:MetroWindow x:Class="Warframe_Toolbox.NotificationPreviewWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Warframe_Toolbox"
+        mc:Ignorable="d"
+        Height="100" 
+        Width="200"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:settings="clr-namespace:Warframe_Toolbox.Properties"
+        Top="{Binding NotificationTop, Source={x:Static settings:Settings.Default}, Mode=TwoWay}"
+        Left="{Binding NotificationLeft, Source={x:Static settings:Settings.Default}, Mode=TwoWay}"
+        AllowsTransparency="True"
+        Topmost="True"
+        ResizeMode="NoResize">
+    
+    <Viewbox >
+        <TextBlock Name="notification"
+                 Text="Move this window to desired position"
+                 Background="Transparent"
+                 TextWrapping = "Wrap"
+                 Foreground="Black"/>
+    </Viewbox>
+</Controls:MetroWindow>
