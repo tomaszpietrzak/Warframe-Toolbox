@@ -36,6 +36,14 @@ namespace Warframe_Toolbox
 
             return _searchResults;
         }
+        public static String GetItemPrice(MarketItem mi)
+        {
+            RestClient client = new RestClient("https://api.warframe.market/v1");
+            var request = new RestRequest("items/" + mi.Url_name + "/statistics", Method.GET);
+
+            var response = client.Execute(request);
+            return  JObject.Parse(response.Content)["payload"]["statistics"]["90days"][0]["avg_price"].ToString();
+        }
 
         public static JObject GetWorldState()
         {
@@ -60,10 +68,17 @@ namespace Warframe_Toolbox
             return alerts;
         }
 
-        public static void GetInvasions(JObject worldState)
+        public static List<Invasion> GetInvasions(JObject worldState)
         {
             var w = worldState["Invasions"].Children().ToList();
-            
+            List<Invasion> invasions = new List<Invasion>();
+            foreach (JToken t in w)
+            {
+                var a = t.ToObject<Invasion>();
+                invasions.Add(a);
+            }
+            return invasions;
+
         }
 
         private static JObject _factions;

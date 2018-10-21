@@ -30,7 +30,9 @@ namespace Warframe_Toolbox
         {
             NotificationQueue = new List<Notification>();
             Alerts = new ObservableCollection<Alert>();
+            Invasions = new ObservableCollection<Invasion>();
             MarketItems = new List<MarketItem>();
+            SearchResults = new List<MarketItem>();
 
             OpenNotificationWindowCommand = new RelayCommand(OpenNotificationWindow);
             OpenNotificationPreviewWindowCommand = new RelayCommand(OpenNotificationPreviewWindow);
@@ -95,8 +97,7 @@ namespace Warframe_Toolbox
             foreach (Alert alert in newAlerts)
             {
                 
-
-                if (!(Alerts.Any(x => x._id.oid == alert._id.oid)))
+                if (!(Alerts.Any(x => x._id.oid == alert._id.oid)) && alert!=null)
                 {
                     NotificationQueue.Add(alert);
                 }
@@ -106,6 +107,21 @@ namespace Warframe_Toolbox
             Alerts = tmpAlerts;
             
             WarframeInfoProvider.GetInvasions(world);
+
+            var newInvasions = WarframeInfoProvider.GetInvasions(world);
+
+            var tmpInvasions = new ObservableCollection<Invasion>();
+            foreach (Invasion invasion in newInvasions)
+            {
+
+                if (!(Invasions.Any(x => x._id.oid == invasion._id.oid)) && invasion != null)
+                {
+                    NotificationQueue.Add(invasion);
+                }
+                invasion.ToNotificationString();
+                tmpInvasions.Add(invasion);
+            }
+            Invasions = tmpInvasions;
         }
 
         private List<Notification> _notificationQueue;
@@ -124,12 +140,30 @@ namespace Warframe_Toolbox
                 NotifyPropertyChanged("Alerts");
             }
         }
-        
+
+        private ObservableCollection<Invasion> _invasions;
+        public ObservableCollection<Invasion> Invasions
+        {
+            get { return _invasions; }
+            set
+            {
+                _invasions = value;
+                NotifyPropertyChanged("Alerts");
+            }
+        }
+
         List<MarketItem> _marketItems;
         public List<MarketItem> MarketItems
         {
             get { return _marketItems; }
             set { _marketItems = value; }
+        }
+
+        List<MarketItem> _searchResults;
+        public List<MarketItem> SearchResults
+        {
+            get { return _searchResults; }
+            set { _searchResults = value; }
         }
 
         private ICommand _openNotificationWindowCommand;
@@ -312,6 +346,8 @@ namespace Warframe_Toolbox
                 if (Regex.IsMatch(s, mi.Item_name, RegexOptions.IgnoreCase))
                 {
                     Console.WriteLine(mi.Item_name);
+                    SearchResults.Add(mi);
+                    mi.UpdatePrice();
                 }
             }
 

@@ -19,6 +19,10 @@ namespace Warframe_Toolbox
         {
             Price = "0";
         }
+        public void UpdatePrice()
+        {
+            //Price = WarframeInfoProvider.GetItemPrice(this);
+        }
     }
 
     public abstract class Notification
@@ -109,6 +113,7 @@ namespace Warframe_Toolbox
                                                 Rewards).ToString();
             return NotificationString;
         }
+        
     }
 
     public class Invasion : Notification

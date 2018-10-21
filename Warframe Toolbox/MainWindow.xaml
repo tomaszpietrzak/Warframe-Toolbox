@@ -44,16 +44,9 @@
                         </DataGrid.Columns>
                     </DataGrid>
                     <DataGrid ItemsSource="{Binding Invasions}"
-                        AutoGenerateColumns="False"
+                        AutoGenerateColumns="True"
                         VerticalScrollBarVisibility="Visible"
                         Height="150">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="Node" Binding="{Binding Node}"/>
-                            <DataGridTextColumn Header="Mission Type" Binding="{Binding MissionType}"/>
-                            <DataGridTextColumn Header="Faction" Binding="{Binding Faction}"/>
-                            <DataGridTextColumn Header="Level" Binding="{Binding Level}"/>
-                            <DataGridTextColumn Header="Rewards" Binding="{Binding Rewards}"/>
-                        </DataGrid.Columns>
                     </DataGrid>
                 </StackPanel>
             </TabItem>
@@ -80,7 +73,16 @@
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                     </Button>
-                    <DataGrid Name="dg" ItemsSource="{Binding SearchResults}"/>
+                    <DataGrid Name="dg" 
+                              ItemsSource="{Binding SearchResults}"
+                              AutoGenerateColumns="False"
+                              VerticalScrollBarVisibility="Visible"
+                              Height="150">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Item Name" Binding="{Binding Item_name}"/>
+                            <DataGridTextColumn Header="Price" Binding="{Binding Price}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
                 </StackPanel>
             </TabItem>
             
