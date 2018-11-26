@@ -1,12 +1,16 @@
 pipeline {
   agent any
-  stages {
-    stage('Build') {
-      steps {
-        sh '''bat \'nuget restore Warframe Toolbox.sln\'
+  
+	node {
+		stage 'Checkout'
+			checkout scm
 
-bat "\\"${tool \'msbuild\'}\\" Warframe Toolbox.sln /p:Configuration=Debug"'''
-      }
-    }
-  }
+		stage 'Build'
+			bat 'nuget restore Warframe Toolbox.sln'
+			bat "\"${tool 'MSBuild'}\" Warframe Toolbox.sln /p:Configuration=Release"
+
+		stage 'Archive'
+			archive 'ProjectName/bin/Release/**'
+
+	}
 }
