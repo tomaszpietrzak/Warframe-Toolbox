@@ -5,7 +5,7 @@ pipeline {
       steps {
         sh '''bat \'nuget restore Warframe Toolbox.sln\'
 
-bat "\\"${tool \'msbuild\'}\\" Warframe Toolbox.sln /p:Configuration=Debug"'''
+bat "\\"${tool \'MSBuild\'}\\" Warframe Toolbox.sln /p:Configuration=Release"'''
       }
     }
   }
