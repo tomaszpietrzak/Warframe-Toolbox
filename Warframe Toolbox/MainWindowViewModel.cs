@@ -19,7 +19,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
-using Tesseract;
 
 namespace Warframe_Toolbox
 {
